@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Employees App</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Employees App</h3>
+	<hr>
+
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+		<tr>
+			<th>Id</th>
+			<th>FirtName</th>
+			<th>LastName</th>
+			<th>Role</th>
+			<th>Salary</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr th:each="actualEmployee : ${employeeList}">
+
+			<td th:text="${actualEmployee.id}" />
+			<td th:text="${actualEmployee.firstName}" />
+			<td th:text="${actualEmployee.lastName}" />
+			<td th:text="${actualEmployee.role}" />
+			<td th:text="${actualEmployee.salary}" />
+
+		</tr>
+		</tbody>
+	</table>
+	<a th:href="@{/api/main}"
+	   class="btn btn-primary btn-sm mb-3">
+		Back
+	</a>
+</div>
+
+</body>
+</html>
+
+
+

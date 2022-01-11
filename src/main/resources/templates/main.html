@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Calculation App</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Employees App</h3>
+	<hr>
+
+	<!-- Add employee -->
+	<a th:href="@{/api/showFormForAdd}"
+	   class="btn btn-primary btn-sm mb-3">
+		Add employee
+	</a>
+
+	<!-- List employees -->
+	</br>
+	</br>
+	<a th:href="@{/api/employees}"
+	   class="btn btn-primary btn-sm mb-3">
+		List employees
+	</a>
+
+	<!-- Search for a certain employee -->
+	</br>
+	</br>
+	<form th:action="@{/api/employeeById}">
+		<button type="submit" class="btn btn-primary">List employee with id</button>
+		<input type="id" th:name="id"/>
+	</form>
+
+	<!-- Modify a certain employee -->
+	</br>
+	</br>
+	<form th:action="@{/api/showFormForUpdate}">
+		<button type="submit" class="btn btn-primary">Modify employee with id</button>
+		<input type="id" th:name="id"/>
+	</form>
+
+	<!-- Delete a certain employee -->
+	</br>
+	</br>
+	<form th:action="@{/api/deleteEmployee}">
+		<button type="submit" class="btn btn-primary">Delete employee with id</button>
+		<input type="id" th:name="id"/>
+	</form>
+
+</div>
+
+</body>
+</html>
+
+
+

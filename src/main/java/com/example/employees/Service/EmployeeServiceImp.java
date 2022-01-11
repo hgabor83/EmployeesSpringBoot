@@ -29,7 +29,7 @@ public class EmployeeServiceImp implements EmployeeService{
     }
 
     @Override
-    public Employee save(Employee newEmployee) {
-        return null;
+    public void save(Employee newEmployee) {
+        employeeRepository.save(newEmployee);
     }
 }

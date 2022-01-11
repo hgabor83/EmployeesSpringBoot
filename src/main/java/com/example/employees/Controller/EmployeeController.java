@@ -4,43 +4,66 @@ import com.example.employees.Entity.Employee;
 import com.example.employees.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
+    @GetMapping("/main")
+    public String getMain(){
+        return "main";
+    }
+
     @GetMapping("/employees")
-    public List<Employee> getEmployees(){
-        return employeeService.findAll();
+    public String getEmployees(Model theModel){
+        theModel.addAttribute("employeeList",employeeService.findAll());
+        return "list-employees";
     }
 
-    @PostMapping("/employees")
-    private Employee newEmployee(@RequestBody Employee newEmployee) {
-        return employeeService.save(newEmployee);
+    @GetMapping("/showFormForAdd")
+    public String addEmployee(Model theModel){
+        Employee employee=new Employee();
+        theModel.addAttribute("theEmployee", employee);
+        return "add-employee";
     }
 
-    // Single item
-
-    @GetMapping("/employees/{id}")
-    private Employee one(@PathVariable int id) {
-        return employeeService.findById(id);
+    @PostMapping("/saveEmployee")
+    private String newEmployee(@ModelAttribute("theEmployee") Employee newEmployee) {
+        employeeService.save(newEmployee);
+        return "main";
     }
 
-    @PutMapping("/employees/{id}")
-    private Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable int id) {
-        //TBD
-            return new Employee();
+    @GetMapping("/employeeById")
+    private String getOneEmployee(@RequestParam(value = "id", required = false) int id, Model theModel) {
+        theModel.addAttribute("employeeList",employeeService.findById(id));
+        return "list-employees";
     }
 
-    @DeleteMapping("/employees/{id}")
-    private void deleteEmployee(@PathVariable int id) {
+    @GetMapping("/showFormForUpdate")
+    public String editEmployee(@RequestParam(value = "id", required = false) int id, Model theModel){
+        Employee employee=employeeService.findById(id);
+        theModel.addAttribute("theEmployee", employee);
+        return "update-employee";
+    }
+
+    @PostMapping("/updateEmployee")
+    private String updateEmployee(@ModelAttribute("theEmployee") Employee newEmployee) {
+        employeeService.save(newEmployee);
+        return "main";
+    }
+
+
+    @GetMapping("/deleteEmployee")
+    private String deleteEmployee(@RequestParam(value = "id", required = false) int id, Model theModel) {
         employeeService.deleteById(id);
+        return "main";
     }
 
 }
