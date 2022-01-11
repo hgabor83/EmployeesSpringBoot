@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/api")
 public class EmployeeController {
@@ -16,17 +14,20 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    // -------- Main page --------
     @GetMapping("/main")
     public String getMain(){
         return "main";
     }
 
+    // -------- List all employees --------
     @GetMapping("/employees")
     public String getEmployees(Model theModel){
         theModel.addAttribute("employeeList",employeeService.findAll());
         return "list-employees";
     }
 
+    // -------- Add employee --------
     @GetMapping("/showFormForAdd")
     public String addEmployee(Model theModel){
         Employee employee=new Employee();
@@ -40,12 +41,14 @@ public class EmployeeController {
         return "main";
     }
 
+    // -------- Find one employee --------
     @GetMapping("/employeeById")
     private String getOneEmployee(@RequestParam(value = "id", required = false) int id, Model theModel) {
         theModel.addAttribute("employeeList",employeeService.findById(id));
         return "list-employees";
     }
 
+    // -------- Update employee --------
     @GetMapping("/showFormForUpdate")
     public String editEmployee(@RequestParam(value = "id", required = false) int id, Model theModel){
         Employee employee=employeeService.findById(id);
@@ -59,7 +62,7 @@ public class EmployeeController {
         return "main";
     }
 
-
+    // -------- Delete employee --------
     @GetMapping("/deleteEmployee")
     private String deleteEmployee(@RequestParam(value = "id", required = false) int id, Model theModel) {
         employeeService.deleteById(id);
